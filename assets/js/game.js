@@ -1,17 +1,9 @@
-//var playerName = window.prompt("What is your robot's name?");
-//console.log(playerName);
-
 //console.log("This logs a string, good for leaving yourself a message");
 
 // this will do math and log 20
 //console.log(10+10);
 //what is this?
 //console.log("Our robot's name is " + playerName);
-
-// this creates a function named "fight"
-
-//function fight() {
-    //window.alert("The!");}
 
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
@@ -23,6 +15,11 @@ var playerMoney = 10;
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
+
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min +1) + min);
+    return value;
+};
 
 /*console.log(enemyNames);
 console.log(enemyNames[0]);
@@ -37,13 +34,6 @@ for(var i = 0; i < enemyNames.length; i++) {
     console.log(i);
     console.log(enemyNames[i] + " is at " + i + " index");
 } */
-
-
-/*
-var fight = function() {
-    window.alert("Welcome to Robot Gladiators!");
-};
-*/
 
 // Game States
 // "WIN" - Player robot has defeated all enemy robots
@@ -65,7 +55,7 @@ var fight = function(enemyName) {
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip the fight. Goodbye!");
             //subtract money from playerMoney for skipping
-            playerMoney = playerMoney - 10;
+            playerMoney = Math.max(0, playerMoney - 10);
             console.log("playerMoney", playerMoney);
             break;
         }
@@ -75,7 +65,8 @@ var fight = function(enemyName) {
     /*if (promptFight === "fight" || promptFight === "FIGHT" || promptFight === "Fight") {} */
         //remove enemy's health by subtracting the amount set in the playerAttack variable
         //Subtract the value of 'playerAttack' from the value of the 'enemyHealth' and use that result to update the value in the 'enemyHealth variable.
-    enemyHealth = enemyHealth - playerAttack;
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+    enemyHealth = Math.max(0, enemyHealth - damage);
     //Log a resulting message to the console so we know that it worked
     console.log(
         playerName + " attacked " + enemyName + " . " + enemyName + " now has " + enemyHealth + " health remaining."
@@ -94,7 +85,8 @@ var fight = function(enemyName) {
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
     }
     //Subtract the value of 'enemyAttack' from the value of 'playerHealth' and use that result to update the value in the 'playerHealth' variable
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack -3, enemyAttack);
+    playerHealth = Math.max(0, playerHealth - damage);
     //Log a resulting message to the console so we know that it worked
     console.log(
         enemyName + " attacked " + playerName + " . " + playerName + " now has " + playerHealth + " health remaining."
@@ -132,9 +124,6 @@ var fight = function(enemyName) {
 };
 */
 
-    /*Alert users that they are starting the round
-    window.alert("Welcome to Robot Gladiators!");*/
-
 
 //execute function
 //fight();
@@ -154,7 +143,7 @@ var startGame = function() {
             //pick new enemy to fight based on the index of the enemyNames array
             var pickedEnemyName = enemyNames[i];
             //reset enemyHealth before starting new fight
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40, 60);
             fight(pickedEnemyName);
 
             //if we're not at the last enemy in the array
@@ -174,8 +163,6 @@ var startGame = function() {
             break;
         }
     }
-    //play again
-    //startGame();
     //after the loop ends, player is either out of health or enimies to fight, so run the endGame function
     endGame();
 };
@@ -249,3 +236,13 @@ var shop = function() {
 
 // start the game when the page loads
 startGame();
+
+//prints 3.141592653589793
+//console.log(Math.PI);
+
+//rounds to the nearest whole number (4)
+//console.log(Math.round(4.4));
+
+//prints the sqaure root of (5)
+//console.log(Math.sqrt(25));
+
